@@ -1,0 +1,24 @@
+---
+- name: Install Git's dependencies
+  yum: name={{ item }} state=present
+  with_items:
+    - gettext-devel
+    - expat-devel
+    - curl-devel
+    - zlib-devel
+    - perl-devel
+    - openssl-devel
+    - make
+    - gcc
+
+- name: Download Git
+  get_url: url=https://www.kernel.org/pub/software/scm/git/git-{{ git_version }}.tar.gz dest=/usr/local/src/git-{{ git_version }}.tar.gz validate_certs=no
+
+- name: Expand Git archive
+  command: chdir=/usr/local/src /bin/tar -xzvf ./git-{{ git_version }}.tar.gz creates=/usr/local/src/git-{{ git_version }}
+
+- name: Make prefix=/usr/local all
+  command: chdir=/usr/local/src/git-{{ git_version }} /usr/bin/make prefix=/usr/local all
+
+- name: Install Git
+  command: chdir=/usr/local/src/git-{{ git_version }} /usr/bin/make prefix=/usr/local install

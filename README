@@ -1,0 +1,11 @@
+Nginx Ansible
+-------------
+
+* Generate nginx basic auth (optional)
+
+~~~~
+$ sudo sh -c "echo -n 'developer:' >> /etc/nginx/.htpasswd"
+$ sudo sh -c "openssl passwd mysuperpass >> /etc/nginx/.htpasswd"
+~~~~
+
+* uncomment in default.conf the basic auth

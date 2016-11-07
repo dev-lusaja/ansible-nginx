@@ -1,0 +1,9 @@
+---
+- name: Add Nodejs repositorie
+  shell: curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+
+- name: Install Nodejs
+  yum: name=nodejs state=present
+
+- name: Install Gulp-cli
+  npm: name=gulp-cli global=yes

@@ -1,0 +1,36 @@
+---
+- name: Playbook for Developers documentation installation
+  sudo: True
+  vars:
+    ssl_dir: /usr/bin/certs/
+  vars_prompt:
+  - name: "environment"
+    prompt: "Enter a environment name"
+    private: no
+  - name: "host_user"
+    prompt: "Enter a user name for host"
+    private: no
+  - name: "http_proxy"
+    prompt: "Enter a HTTP Proxy"
+    private: no
+  - name: "https_proxy"
+    prompt: "Enter a HTTPS Proxy"
+    private: no
+  - name: "git_user"
+    prompt: "Enter a Gitlab user"
+    private: no
+  - name: "git_pass"
+    prompt: "Enter a Gitlab password"
+    private: yes
+  hosts: "{{ environment }}"
+  user: "{{ host_user }}"
+  environment:
+  - http_proxy: "{{ http_proxy }}"
+  - https_proxy: "{{ https_proxy }}"
+
+  roles:
+    - dev-tools
+    - wget
+    - git
+    - nginx
+    - nodejs

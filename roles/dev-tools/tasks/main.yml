@@ -1,0 +1,11 @@
+---
+- name: Update all dependencies and libraries
+  yum: name=* state=present
+
+- name: Install Development Tools
+  yum: name="@Development tools" state=present
+
+- name: Install libraries
+  yum: name={{ item }} state=present
+  with_items:
+  - libselinux-python
